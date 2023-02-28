@@ -1,0 +1,16 @@
+cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
+
+PROJECT(all)
+
+#add_subdirectory(Q1)
+add_subdirectory(Q2)
+#add_subdirectory(Q3)
+add_subdirectory(Q4)
+add_subdirectory(Q5)
+#add_subdirectory(Q6)
+#add_subdirectory(Q7)
+#add_subdirectory(Q8)
+#add_subdirectory(Q9)
+#add_subdirectory(Q10)
+#add_subdirectory(Q11)
+#add_subdirectory(Q12)

@@ -1,0 +1,22 @@
+Considérons l'exemple suivant pour illustrer que prendre systématiquement la ville la plus proche à chaque étape ne garantit pas toujours la tournée la plus courte :
+
+Supposons que nous ayons 5 villes (A, B, C, D, E) avec les distances suivantes :
+
+  A B C D E
+A 0 1 5 4 3
+B 1 0 3 2 4
+C 5 3 0 6 7
+D 4 2 6 0 8
+E 3 4 7 8 0
+
+Si nous commençons à la ville A et prenons systématiquement la ville la plus proche à chaque étape, nous obtiendrons la tournée suivante :
+
+A -> B -> D -> E -> C -> A
+Ce qui donne une distance totale de 18.
+
+Cependant, si nous prenons aléatoirement parmi les deux paires de villes les plus proches à chaque étape, nous pourrions obtenir une tournée plus courte. Par exemple, nous pourrions obtenir la tournée suivante :
+
+A -> B -> C -> E -> D -> A
+Ce qui donne une distance totale de 16.
+
+Ainsi, en prenant des choix aléatoires, nous avons la possibilité de trouver des tournées plus courtes que si nous avions pris systématiquement la ville la plus proche à chaque étape. Cela souligne l'importance de l'algorithme glouton randomisé pour le problème du voyageur de commerce.

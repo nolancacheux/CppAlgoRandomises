@@ -1,0 +1,9 @@
+Il est préférable de directement trier les solutions de chaque réplication de l'algorithme glouton 
+randomisé plutôt que de reconstituer une solution à partir des meilleurs résultats de (P1) et (P2)
+pris séparément pour chaque réplication. En effet, la recherche de la meilleure solution en combinant
+les résultats de deux problèmes différents peut être complexe et potentiellement imprécise, tandis que
+le tri des solutions obtenues par l'algorithme glouton randomisé est simple et efficace. 
+
+De plus, le tri des solutions permet de sélectionner directement la meilleure solution parmi toutes les réplications de l'algorithme, 
+tandis que la reconstitution d'une solution à partir des meilleurs résultats des problèmes P1 et P2 pris séparément ne garantit pas nécessairement 
+la meilleure solution globale.

@@ -1,0 +1,5 @@
+Ici, nous ouvrons les fichiers de données et lisons les informations nécessaires pour remplir nos structures de données définies précédemment. Nous vérifions également si les fichiers ont été correctement ouverts. Enfin, nous affichons les données pour vérifier si tout s'est bien passé.
+
+Le programme prend les noms de fichiers en tant que paramètres d'exécution, de sorte qu'il peut être utilisé pour tout fichier ayant la même structure.
+
+Dans le terminal ./Q2.exe 5colis30capacite.txt 4villes.txt

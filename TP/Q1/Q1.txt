@@ -1,0 +1,57 @@
+
+
+QUESTION 1.Algo.
+
+Commencer par réfléchir aux structures de données à même d’enregistrer 
+l’ensemble des données des deux problèmes (P1) et(P2).
+
+
+
+REPONSE :
+
+Pour enregistrer l'ensemble des données des deux problèmes (P1) et (P2), il faut définir des structures de données appropriées pour chaque problème.
+
+----------------------------------------------------------------------------------
+
+Pour le problème(P1), il est nécessaire de stocker les informations suivantes :
+
+		La capacité du véhicule.
+		Le nombre d'objets disponibles.
+		Pour chaque objet, son nom / index, sa consommation de capacité et son bénéfice.
+		On peut définir une structure de données pour stocker ces informations, par exemple :
+
+``` 
+struct P1Data {
+    int capacity;
+    int num_objects;
+    std::vector<std::tuple<int, int, int>> objects; // (nom/index, consommation, bénéfice)
+};
+
+```
+
+La capacité et le nombre d'objets sont stockés sous forme d'entiers simples, et les informations pour chaque objet sont stockées dans un vecteur de tuples, chaque tuple contenant le nom/index, la consommation et le bénéfice de l'objet.
+
+
+----------------------------------------------------------------------------------
+
+
+Pour le problème (P2), il est nécessaire de stocker les informations suivantes :
+
+Le nombre de villes.
+Les noms/index des villes.
+La matrice des distances/consommations d'énergie électrique associées aux différents déplacements possibles entre les villes.
+On peut définir une structure de données pour stocker ces informations, par exemple :
+
+
+``` 
+struct P2Data {
+    int num_cities;
+    std::vector<std::string> city_names;
+    std::vector<std::vector<int>> distances;
+};
+
+```
+
+Le nombre de villes est stocké sous forme d'entier simple, les noms/index des villes sont stockés dans un vecteur de chaînes de caractères, et la matrice des distances est stockée dans un vecteur de vecteurs d'entiers.
+
+----------------------------------------------------------------------------------

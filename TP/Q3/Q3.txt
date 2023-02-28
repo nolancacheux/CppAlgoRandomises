@@ -1,0 +1,48 @@
+Les problèmes P1 et P2 peuvent être résolus à l'aide d'algorithmes gloutons, qui cherchent à optimiser la solution à chaque étape, sans prendre en compte les conséquences à long terme.
+
+Dans le cas du problème P1, l'objectif est de remplir un camion avec des produits de manière à maximiser le bénéfice tout en respectant la capacité du camion. 
+Pour cela, on peut trier les produits restants par rapport bénéfice/capacité, puis insérer le produit ayant le meilleur rapport dans le camion, 
+tant qu'il y a suffisamment de capacité. Répétez ce processus jusqu'à ce que tous les produits soient insérés. Il est important de noter que cette méthode ne garantit pas la solution optimale, mais elle permet de trouver une solution rapidement.
+
+Dans le cas du problème P2, l'objectif est de trouver le chemin le plus court pour traverser toutes les villes en visitant chacune une seule fois. 
+Pour cela, on peut commencer par choisir une ville de départ, puis à chaque itération, ajouter la ville la plus proche de la dernière ville ajoutée. 
+Répétez ce processus jusqu'à ce que toutes les villes soient visitées. Cette méthode est également une solution gloutonne qui ne garantit pas la solution optimale, 
+mais elle est rapide et permet de trouver une solution acceptable.
+
+Il est important de choisir des structures de données efficaces pour stocker les produits et les villes, afin de garantir des temps de calcul raisonnables. 
+Des tableaux ou des vecteurs peuvent être utilisés pour stocker les produits et les villes, ainsi que leur position.
+
+En ce qui concerne la complexité des algorithmes, la complexité de l'algorithme pour P1 dépend de l'efficacité du tri initial des produits. 
+Si les produits sont triés efficacement, la complexité de l'algorithme est O(nlogn) en raison du tri initial, où n est le nombre total de produits. 
+
+La complexité de l'algorithme pour P2 est de O(n^2) car il est nécessaire de parcourir la liste de villes restantes à chaque étape pour trouver la ville la plus proche.
+
+Voici les algorithmes en pseudo-code pour les deux problèmes :
+
+Algorithme pour P1 :
+
+Entrée : un tableau de produits avec leur bénéfice et leur capacité, et la capacité du camion
+Sortie : un tableau de produits à charger dans le camion
+
+Trier les produits restants par rapport bénéfice/capacité
+Tant que la capacité du camion n'est pas atteinte :
+3. Insérer le produit ayant le meilleur rapport bénéfice/capacité
+Retourner le tableau des produits à charger dans le camion
+
+Algorithme pour P2 :
+
+Entrée : une liste de villes avec leurs coordonnées
+Sortie : un tableau de villes dans l'ordre à visiter
+
+Choisir une ville de départ
+Ajouter cette ville au tableau de villes à visiter
+Tant qu'il reste des villes à visiter :
+4. Trouver la ville la plus proche de la dernière ville ajoutée
+Ajouter cette ville au tableau de villes à visiter
+Retourner le tableau de villes à visiter dans l'ordre
+
+Pour P1, nous avons besoin de trier les produits par rapport au rapport bénéfice/capacité et insérer le produit avec le meilleur rapport jusqu'à ce que la capacité maximale du camion soit atteinte. 
+Nous pouvons stocker les produits dans un vecteur et trier le vecteur avec une fonction de comparaison personnalisée.
+
+Pour P2, nous avons besoin de trouver la ville la plus proche de la dernière ville ajoutée à chaque itération. 
+Nous pouvons stocker les villes dans un tableau et utiliser une fonction de comparaison personnalisée pour trier les villes en fonction de leur distance par rapport à la dernière ville ajoutée.
