@@ -1,0 +1,12 @@
+
+
+Ajoute les deux fichiers 4villes.txt et 5colis30capacites.txt dans le build 
+
+Lance : 
+
+cd out/build/x64-debug/TP/Q8
+./Q8.exe 1 5colis30capacite.txt 4villes.txt >> fichier.txt
+./Q8.exe 2 5colis30capacite.txt 4villes.txt >> fichier.txt
+./Q8.exe 3 5colis30capacite.txt 4villes.txt >> fichier.txt
+./Q8.exe 4 5colis30capacite.txt 4villes.txt >> fichier.txt
+.\fichier.txt
