@@ -120,7 +120,7 @@ vector<int> solveP1(P1Data& data) {
 
     // Affichage de la solution
     std::cout << "\nBenefice total : " << total_profit << std::endl;
-    std::cout << "Energie consommée : " << total_consumption << std::endl;
+    std::cout << "Energie consommee : " << total_consumption << std::endl;
     std::cout << "Composition de la solution :" << std::endl;
     for (int i = 0; i < data.num_objects; i++) {
         if (solution[i] == 1) {
@@ -192,12 +192,12 @@ int main(int argc, char* argv[]) {
     cout << "Solution de la graine numero " << graine  << " :\n"<< endl;
     // Résolution du problème P1
     P1Data p1_data = readP1File(argv[2]);
-    cout << "\nProblème P1 :" << endl;
+    cout << "\nProbleme P1 :" << endl;
     auto p1result = solveP1(p1_data);
    
     // Résolution du problème P2
     P2Data p2_data = readP2File(argv[3]);
-    cout << "\nProblème P2 :" << endl;
+    cout << "\nProbleme P2 :" << endl;
     int p2result = solveP2(p2_data);
     cout << "Distance minimale : " << p2result << endl;
     cout << "Chemin optimal : ";

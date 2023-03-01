@@ -115,28 +115,45 @@ vector<int> solveP1(P1Data& data) {
     // Boucle sur les objets triés
     for (int i = 0; i < data.num_objects; i++) {
         // Vérification si l'objet peut être inclus dans la solution
-        if (total_consumption + std::get<1>(data.objects[i]) <= data.capacity) {
+        if ((total_consumption + std::get<1>(data.objects[i]) <= data.capacity) && ((solution[std::get<0>(data.objects[i]) - 1]) != 1)) {
             // Les deux meilleurs candidats
             auto candidate1 = data.objects[i];
             auto candidate2 = std::make_tuple(0, 0, 0);
+            std::cout << "best candidate : object in pos" << i << endl;
+            std::cout << "boucle sur les objets: de pos" << i + 1 << " à " << data.num_objects;
             for (int j = i + 1; j < data.num_objects; j++) {
-                if (total_consumption + std::get<1>(data.objects[j]) <= data.capacity) {
+                std::cout << "enter" << j;
+                if ((total_consumption + std::get<1>(data.objects[j]) <= data.capacity) && ((solution[std::get<0>(data.objects[j]) - 1]) != 1)) {
                     candidate2 = data.objects[j];
                     break;
                 }
             }
 
-            std::cout << "\nOn CHOISIT désormais aléatoirement entre les deux candidats d'objets : " << std::endl;
-            // Choix aléatoire entre les deux candidats
-            std::default_random_engine generator(std::random_device{}());
-            std::uniform_int_distribution<int> distribution(1, 2);
-            auto random_choice = distribution(generator);
-            auto chosen_candidate = (random_choice == 1) ? candidate1 : candidate2;
+            std::cout << endl << endl << total_consumption << " / " << data.capacity;
+            std::cout << "\nOn CHOISIt désormais aléatoirement entre les deux meilleurs candidats d'objets : " << std::endl;
+
+            std::cout << get<0>(candidate1) << " et " << get<0>(candidate2) << endl;
+
+            tuple<int, int, int> chosen_candidate;
+            if (get<0>(candidate2) == 0) {
+                chosen_candidate = candidate1;
+            }
+            else {
+                // Choix aléatoire entre les deux candidats
+                std::default_random_engine generator(std::random_device{}());
+                std::uniform_int_distribution<int> distribution(1, 2);
+                auto random_choice = distribution(generator);
+                chosen_candidate = (random_choice == 1) ? candidate1 : candidate2;
+            }
+
+
+            std::cout << "Objet choisit : " << get<0>(chosen_candidate) << endl;
 
             // Mise à jour de la solution
             solution[std::get<0>(chosen_candidate) - 1] = 1; // Marquage de l'objet inclus
             total_profit += std::get<2>(chosen_candidate);
             total_consumption += std::get<1>(chosen_candidate);
+
         }
     }
 
@@ -152,6 +169,7 @@ vector<int> solveP1(P1Data& data) {
         }
     }
     return solution;
+
 }
 
 
@@ -249,6 +267,7 @@ int main(int argc, char* argv[]) {
     cout << "\nProblème P2 :" << endl;
     cout << "\nDonnées :" << endl;
     printP2Data(p2_data);
+    /*
     int p2result = solveP2(p2_data);
     cout << "Résultat :\n" << endl;
     cout << "Distance minimale : " << p2result << endl;
@@ -257,6 +276,7 @@ int main(int argc, char* argv[]) {
         cout << city << " -> ";
     }
     cout << p2_data.city_names[0] << "\n\n" << endl;
+     */
     return 0;
 }
 
