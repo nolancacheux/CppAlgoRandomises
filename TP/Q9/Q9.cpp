@@ -9,8 +9,8 @@ using namespace std;
 
 // Structure de données pour les toutes les solutions trouvées au problème P1
 struct SolutionsP1Data {
-    vector<int> benef; // Capacité du sac à dos
-    vector<int> consommation;// Nombre d'objets disponibles
+    vector<int> benef; 
+    vector<int> consommation;
     vector<tuple<int, int, int>> objects; // (nom/index, consommation, bénéfice)
 };
 
