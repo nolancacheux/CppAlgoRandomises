@@ -1,1 +1,21 @@
-C:/Users/Administrateur/Desktop/Examples-main/out/build/x64-debug/TP/Q8_V2/fichier.txt
+
+Pour le problème P1, la meilleure solution parmi toutes celles générées que nous avons choisi est celle qui a le meilleur résultat pondéré. 
+(Avec coefficient de ponderation de 0.5 pour le benefice et de 0.5 pour l'energie consommee.)
+On peut donc sélectionner la solution ayant le résultat pondéré le plus élevé parmi toutes les solutions générées 
+et afficher ainsi le bénéfice total ,la consommation d'énergie et la composition de la solution en conséquence 
+
+Pour le problème P2, la meilleure solution est celle qui a la distance minimale. 
+On peut donc sélectionner la solution ayant la distance la plus faible parmi toutes les solutions générées et afficher le chemin en conséquence.
+
+
+Q9 est un affichage en console de Q8 dans le fichier.txt afin de simplifier le travail lors de la récupération des solutions (P1) et (P2)
+
+Instruction à faire pour tester le code : 
+
+Ajoute les deux fichiers 4villes.txt et 5colis30capacites.txt dans le build si cela n'est pas déjà fait
+
+Aller dans le terminal : 
+
+cd out/build/x64-debug/TP/Q9
+
+./Q9.exe 5colis30capacite.txt 4villes.txt

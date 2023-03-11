@@ -25,6 +25,17 @@ struct P2Data {
 };
 
 
+struct Solution {
+    int benefice;
+    int energie;
+    vector<int> objets_inclus;
+    int resultat_pondere;
+    vector<string> chemin;
+    int distance;
+};
+
+Solution MeilleureSolution = { 0, 0, {}, 0, {}, -1 };
+
 // Fonction pour lire les données du problème P1 à partir d'un fichier
 P1Data readP1File(std::string filename) {
     std::ifstream infile(filename);
@@ -161,19 +172,34 @@ vector<int> solveP1(P1Data& data, int seed) {
     }
 
     // Affichage de la solution
-    std::cout <<  total_profit << std::endl;
-    std::cout << total_consumption << std::endl;
-    std::cout << "(";
+    std::cout << "\nBenefice total : " << total_profit << std::endl;
+    std::cout << "Energie consommee : " << total_consumption << std::endl;
+    std::cout << "Composition de la solution :" << std::endl;
     for (int i = 0; i < data.num_objects; i++) {
         if (solution[i] == 1) {
             int index, consumption, profit;
             std::tie(index, consumption, profit) = copie_data.objects[i];
-            if (i == data.num_objects - 1) { std::cout << index << ")" << std::endl; }
-            else { std::cout << index << ","; }
+            std::cout << "Objet " << index << " inclus" << std::endl;
         }
     }
-    //Coefficient de ponderation de 0.5 pour le benefice et de 0.5 pour l'energie consommee.
-    std::cout << ((0.5 * total_profit) + (0.5 * total_consumption)) << std::endl;
+    std::cout << "\nAvec coefficient de ponderation de 0.5 pour le benefice et de 0.5 pour l'energie consommee :" << std::endl;
+    int pondere = static_cast<int>(round((0.5 * total_profit) + (0.5 * total_consumption)));
+    std::cout << "Resultat pondere : " << pondere << std::endl;
+
+    if (pondere > MeilleureSolution.resultat_pondere) {
+        MeilleureSolution.resultat_pondere = pondere;
+        MeilleureSolution.benefice = total_profit;
+        MeilleureSolution.energie = total_consumption;
+        MeilleureSolution.objets_inclus = {};
+        for (int i = 0; i < data.num_objects; i++) {
+            if (solution[i] == 1) {
+                int index, consumption, profit;
+                std::tie(index, consumption, profit) = copie_data.objects[i];
+                MeilleureSolution.objets_inclus.push_back(index);
+            }
+        }
+
+    }
 
     return solution;
 
@@ -243,9 +269,17 @@ int solveP2(P2Data& data, int seed) {
 
     //Affichage du chemin solution
     for (int i = 0; i < Solution.size(); ++i) {
-        std::cout << data.city_names[Solution[i]] << "->";
+        cout << data.city_names[Solution[i]] << " -> ";
     }
-    std::cout << data.city_names[Solution[0]];
+    cout << data.city_names[Solution[0]] << endl;
+
+    if ((total_distance < MeilleureSolution.distance) || (MeilleureSolution.distance == -1)) {
+        MeilleureSolution.chemin = {};
+        for (int i = 0; i < Solution.size(); ++i) {
+            MeilleureSolution.chemin.push_back(data.city_names[Solution[i]]);
+        }
+        MeilleureSolution.distance = total_distance;
+    }
     return total_distance;
 }
 
@@ -256,31 +290,65 @@ int main(int argc, char* argv[]) {
     setlocale(LC_ALL, "FR_fr");
 
     // Vérifier si les noms de fichiers ont été fournis en tant que paramètres
-    if (argc != 4) {
+    if (argc != 3) {
         cerr << "Deux noms de fichiers doivent être fournis en tant que paramètres." << endl;
         return 1;
     }
 
-    unsigned int seed = std::stoi(argv[1]); // valeur de la graine 
-    std::default_random_engine generator(seed); // initialisation de la graine
-    std::cout << "Solution " << seed << endl;
-    //cout << "\nNumero de la replication (graine) : " << seed << endl;
-    // Résolution du problème P1
-    P1Data p1_data = readP1File(argv[2]);
-    //cout << "\nProbleme P1 :" << endl;
-    //cout << "\nDonnees :" << endl;
-    auto p1result = solveP1(p1_data, seed);
-    // Résolution du problème P2
-    P2Data p2_data = readP2File(argv[3]);
-    //cout << "\nProbleme P2 :" << endl;
-    //cout << "\nDonnées :" << endl;
-    int p2result = solveP2(p2_data, seed);
-    std::cout << "\n" << p2result << endl;/*
-    cout << endl << "Chemin optimal : ";
-    for (const auto& city : p2_data.city_names) {
+    unsigned int seed;
+    vector<int> p1result;
+    int p2result;
+
+    for (int i = 1; i < 5; i++) {
+
+        seed = i; // valeur de la graine 
+        std::default_random_engine generator(seed); // initialisation de la graine
+
+        cout << "\nNumero de la replication (graine) : " << seed << endl;
+
+        // Résolution du problème P1
+        P1Data p1_data = readP1File(argv[1]);
+        cout << "\nProbleme P1 :" << endl;
+        cout << "\nDonnees :" << endl;
+        p1result = solveP1(p1_data, seed);
+        // Résolution du problème P2
+        P2Data p2_data = readP2File(argv[2]);
+        cout << "\nProbleme P2 :" << endl;
+        cout << "\nDonnées :" << endl;
+        cout << "Chemin trouve : " << endl;
+        p2result = solveP2(p2_data, seed);
+        cout << "Distance : " << p2result << endl;/*
+        cout << endl << "Chemin optimal : ";
+        for (const auto& city : p2_data.city_names) {
+            cout << city << " -> ";
+        }
+        cout << p2_data.city_names[0] << "\n\n" << endl;*/
+        cout << "\n\n" << endl;
+    }
+    cout << "-----------------------------------------\n\n" << endl;
+    // Affichage des éléments de MeilleureSolution
+    cout << "Meilleure Solution du problème P1:\n" << endl;
+    cout << "Bénéfice : " << MeilleureSolution.benefice << endl;
+    cout << "Énergie : " << MeilleureSolution.energie << endl;
+    cout << "Objets inclus :\n";
+    for (auto objet : MeilleureSolution.objets_inclus) {
+        std::cout << "Objet " << objet << " inclus" << std::endl;
+    }
+    cout << "Résultat pondéré : " << MeilleureSolution.resultat_pondere << endl;
+
+    cout << "\n\nMeilleure Solution du problème P2:" << endl;
+
+    cout << endl;
+    cout << "Chemin : ";
+    for (const auto& city : MeilleureSolution.chemin) {
         cout << city << " -> ";
     }
-    cout << p2_data.city_names[0] << "\n\n" << endl;*/
+    cout << MeilleureSolution.chemin[0] << endl;
+    cout << "Distance : " << MeilleureSolution.distance << endl;
+
+    cout << "\n\n-----------------------------------------" << endl;
+
+
     return 0;
 }
 

@@ -1,0 +1,34 @@
+
+Dans le terminal 
+
+cd out/build/x64-debug/TP/Q10
+
+.\P1_data.txt
+.\P2_data.txt
+
+
+
+Le code fourni génère aléatoirement les données pour les problèmes P1 et P2, puis les écrit dans des fichiers. 
+
+Lors de la génération des données aléatoires pour les deux problèmes P1 et P2, 
+il est important de réfléchir aux limites à fixer pour créer des situations relativement sensées.
+
+Pour le problème P1, les limites à prendre en compte peuvent être les suivantes :
+
+Le nombre d'objets doit être suffisamment petit pour que le problème reste raisonnable à résoudre (par exemple, entre 5 et 20).
+Le profit maximum des objets doit être inférieur ou égal à la somme des énergies maximales des objets, afin d'assurer qu'il est possible de ramasser tous les objets.
+L'énergie maximale des objets ne doit pas être trop grande pour éviter des situations où un seul objet permet de remplir le sac à dos.
+Les profits et énergies des objets doivent être suffisamment variés pour que la solution ne soit pas triviale, mais pas trop dispersés pour éviter des cas extrêmes.
+
+Pour le problème P2, les limites à prendre en compte peuvent être les suivantes :
+
+Le nombre de villes doit être suffisamment petit pour que le problème reste raisonnable à résoudre (par exemple, entre 5 et 20).
+Les distances entre les villes doivent être suffisamment petites pour que toutes les villes soient connectées, mais pas trop proches pour éviter des situations où la solution est triviale.
+
+Dans le code fourni, les limites choisies pour la génération aléatoire sont assez simples : 
+les profits des objets sont compris entre 1 et 10, les énergies entre 1 et 20 pour P1, et les distances entre 1 et 100 pour P2.
+Ces limites peuvent être modifiées en fonction des besoins spécifiques de l'application considérée.
+
+
+Il est également possible de fixer des limites sur la taille des instances générées pour éviter des temps de calcul trop longs. 
+Par exemple, pour le problème P2, il peut être judicieux de limiter le nombre de villes à quelques dizaines plutôt que quelques milliers.

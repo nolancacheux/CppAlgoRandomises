@@ -1,0 +1,11 @@
+
+Dans le terminal :
+
+cd out/build/x64-debug/TP/Q10Resolution
+
+./Q10Resolution.exe ../Q10/P1_data.txt ../Q10/P2_data.txt
+../Q10/P2_data.txt 
+../Q10/P1_data.txt
+
+
+On résout le problème P1 et P2 avec les nouvelles instances de fichiers.
