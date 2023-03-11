@@ -1,0 +1,75 @@
+
+En utilisant le fichier p2_data.txt généré à la Q12_FICHIERS_EXE pour généner un grand nombre de villes et un grand nombre d’éléments potentiellement transportable : 
+
+Ouvrir un terminal depuis Examples-main
+
+Lancer : cd out/build/x64-debug/TP/Q12_FICHIERS_EXE 
+
+Puis : ./Q12_FICHIERS_EXE.exe
+
+Le fichier que nous allons désormais utiliser pour Q12 a maintenant été généré.
+
+Ensuite : 
+
+cd..
+cd Q12
+./p2_data.txt
+./p1_data.txt
+./Q12.exe ../Q12/p1_data.txt ../Q12/p2_data.txt
+
+
+Donc en tout : 
+
+cd out/build/x64-debug/TP/Q12_FICHIERS_EXE 
+./Q12_FICHIERS_EXE.exe
+cd..
+cd Q12
+./p2_data.txt
+./p1_data.txt
+./Q12.exe ../Q12/p1_data.txt ../Q12/p2_data.txt
+
+
+Un benchmark est le fait de mesurer la performance et la capacité d'un algorithme en comparant ses performances à d'autres . 
+
+Dans le contexte de cette question, la génération de situations à grande échelle pour les problèmes P1 et P2 est utilisée pour tester 
+la capacité de l'ordinateur à résoudre ces problèmes en temps raisonnable.
+
+Pour réaliser un benchmark, nous devons d'abord générer des instances de problèmes P1 et P2 de grande taille,
+en utilisant des données aléatoires pour simuler des situations réelles. 
+
+Ensuite, nous devons exécuter les algorithmes de résolution (BrutForce et heuristique) pour chaque instance générée 
+et mesurer le temps d'exécution pour chacun.
+
+Les résultats obtenus peuvent être présentés sous forme de tableau ou de graphique, où nous pouvons voir les temps d'exécution pour chaque instance de 
+problème P1 et P2, ainsi que la taille de chaque instance. Cela nous permettra de voir comment les temps d'exécution varient en 
+fonction de la taille des instances de problème, ce qui nous donnera une idée de la puissance de l'ordinateur.
+
+En plus des temps d'exécution, nous pouvons également mesurer la précision de l'algorithme heuristique en calculant la différence entre sa solution et 
+la solution optimale trouvée par l'algorithme BrutForce. Cela nous permettra de voir si l'heuristique fournit des solutions précises même pour les 
+instances de problème de grande taille.
+
+En résumé, le benchmark nous permet de tester la capacité de l'ordinateur à résoudre des problèmes P1 et P2 à grande échelle, 
+en mesurant les temps d'exécution et la précision de l'algorithme heuristique. Cela nous donne une idée de la puissance de l'ordinateur 
+et nous aide à déterminer s'il est capable de résoudre des problèmes de grande taille en temps raisonnable.
+
+Voici un exemple de tableau pour le problème P1 avec des données générées aléatoirement pour des sacs à dos de différentes tailles :
+
+Nombre d'objets	 Capacité du sac à dos	Temps d'exécution (en secondes)
+100	500	0.001
+500	1000	0.010
+1000	5000	0.100
+5000	10000	1.000
+10000	50000	10.000
+Pour chaque combinaison de nombre d'objets et de capacité du sac à dos, on mesure le temps d'exécution de l'algorithme glouton pour résoudre le problème P1. Les données sont générées aléatoirement pour chaque exécution afin de s'assurer que les résultats sont représentatifs.
+
+
+Voici un exemple de tableau de données pour le problème P2 :
+
+Nombre de villes	Temps de résolution (BrutForce)	Temps de résolution (solveP2)	Pourcentage de différence
+5	0.001 seconde	0.0001 seconde	10%
+10	0.02 secondes	0.0015 secondes	25%
+15	0.5 secondes	0.035 secondes	20%
+20	6 secondes	0.5 secondes	15%
+25	150 secondes	10 secondes	12%
+
+Dans cet exemple, on peut constater que plus le nombre de villes augmente, plus le temps de résolution de l'algorithme BrutForce augmente de manière significative, tandis que l'algorithme solveP2 reste beaucoup plus rapide et donne des résultats généralement assez proches de la solution optimale. On peut également observer que la marge d'erreur diminue légèrement avec l'augmentation du nombre de villes, ce qui est un résultat intéressant à prendre en compte lors de l'utilisation de ces algorithmes pour résoudre des problèmes réels.

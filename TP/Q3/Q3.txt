@@ -26,7 +26,7 @@ Sortie : un tableau de produits à charger dans le camion
 
 Trier les produits restants par rapport bénéfice/capacité
 Tant que la capacité du camion n'est pas atteinte :
-3. Insérer le produit ayant le meilleur rapport bénéfice/capacité
+     Insérer le produit ayant le meilleur rapport bénéfice/capacité
 Retourner le tableau des produits à charger dans le camion
 
 Algorithme pour P2 :
@@ -37,7 +37,7 @@ Sortie : un tableau de villes dans l'ordre à visiter
 Choisir une ville de départ
 Ajouter cette ville au tableau de villes à visiter
 Tant qu'il reste des villes à visiter :
-4. Trouver la ville la plus proche de la dernière ville ajoutée
+    Trouver la ville la plus proche de la dernière ville ajoutée
 Ajouter cette ville au tableau de villes à visiter
 Retourner le tableau de villes à visiter dans l'ordre
 

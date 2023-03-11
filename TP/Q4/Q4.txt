@@ -6,3 +6,11 @@ Nous pouvons stocker les villes dans un tableau et utiliser une fonction de comp
 Une des approches possibles pour le résoudre est d'utiliser la méthode de la recherche exhaustive (brute-force) qui consiste à tester toutes les permutations possibles des villes, puis de trouver la permutation qui donne la plus petite distance totale. Cette méthode est faisable pour des petits nombres de villes, mais pour un grand nombre de villes, elle est trop coûteuse en temps de calcul.
 
 Une autre approche consiste à utiliser une heuristique, telle que l'algorithme du plus proche voisin, qui consiste à partir d'une ville de départ, puis à sélectionner à chaque étape la ville la plus proche, jusqu'à ce que toutes les villes soient visitées. Cette méthode donne une solution approximative et peut être implémentée en utilisant une liste de villes à visiter, une fonction de calcul de distance et une fonction de comparaison personnalisée pour trier les villes en fonction de leur distance par rapport à la dernière ville ajoutée.
+
+
+Dans le terminal :
+
+cd out/build/x64-debug/TP/Q4
+
+./Q4.exe 5colis30capacite.txt 4villes.txt
+

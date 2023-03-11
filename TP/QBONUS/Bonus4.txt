@@ -1,0 +1,107 @@
+Pour mettre en place des opérateurs locaux dans la résolution des problèmes P1 et P2, nous allons utiliser une approche itérative pour perturber les solutions existantes et essayer de les améliorer.
+
+Pour le problème P1, nous pouvons implémenter des opérateurs locaux tels que l'échange d'objets sélectionnés et non sélectionnés, ou l'échange de deux objets sélectionnés contre un seul non sélectionné. Nous pouvons également utiliser des opérateurs qui ajoutent ou suppriment des objets de la solution.
+
+Pour le problème P2, nous pouvons implémenter des opérateurs locaux tels que l'échange d'ordre de deux villes dans la tournée, ou l'insertion ou la suppression de villes de la tournée.
+
+Après avoir appliqué un opérateur local, nous devons évaluer la qualité de la nouvelle solution et comparer avec la solution précédente. Si la nouvelle solution est meilleure, nous la remplaçons, sinon nous conservons la solution précédente. Nous répétons ce processus jusqu'à ce qu'un critère d'arrêt soit atteint, tel qu'un nombre maximum d'itérations ou un temps d'exécution maximum.
+
+
+
+
+// Fonction pour appliquer des opérateurs locaux à la solution du problème P1
+void applyLocalOperatorsP1(P1Data& data, vector<bool>& solution) {
+int num_objects = data.num_objects;
+vector<pair<int, int>> objects = data.objects;
+int capacity = data.capacity;
+
+// Échange d'objets sélectionnés et non sélectionnés
+for (int i = 0; i < num_objects; i++) {
+    if (solution[i]) {
+        for (int j = num_objects; j < objects.size(); j++) {
+            if (objects[j].first <= capacity && !solution[j]) {
+                solution[i] = false;
+                solution[j] = true;
+                capacity += objects[i].first - objects[j].first;
+            }
+        }
+    }
+}
+
+// Échange de deux objets sélectionnés contre un seul non sélectionné
+for (int i = 0; i < num_objects; i++) {
+    if (solution[i]) {
+        for (int j = i+1; j < num_objects; j++) {
+            if (solution[j]) {
+                for (int k = num_objects; k < objects.size(); k++) {
+                    if (objects[k].first <= capacity && !solution[k] && objects[i].first + objects[j].first - objects[k].first <= capacity) {
+                        solution[i] = false;
+                        solution[j] = false;
+                        solution[k] = true;
+                        capacity += objects[i].first + objects[j].first - objects[k].first;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Ajout d'objets non sélectionnés
+for (int i = num_objects; i < objects.size(); i++) {
+    if (objects[i].first <= capacity && !solution[i]) {
+        solution[i] = true;
+        capacity -= objects[i].first;
+    }
+}
+
+// Suppression d'objets sélectionnés
+for (int i = 0; i < num_objects; i++) {
+    if (solution[i]) {
+        solution[i] =true;
+capacity -= objects[i].first;
+}
+}
+
+// Suppression d'objets sélectionnés
+for (int i = 0; i < num_objects; i++) {
+if (solution[i]) {
+solution[i] = false;
+capacity += objects[i].first;
+}
+}
+
+// Ajout d'objets non sélectionnés
+for (int i = num_objects; i < objects.size(); i++) {
+if (objects[i].first <= capacity && !solution[i]) {
+solution[i] = true;
+capacity -= objects[i].first;
+}
+}
+
+return solution;
+}
+Maintenant, nous allons implémenter la fonction d'opérateur pour le problème P2. Nous allons utiliser un opérateur qui échange deux villes dans la tournée et vérifie si la nouvelle tournée est valide en termes de capacité. Si la nouvelle tournée est valide, nous la renvoyons ; sinon, nous renvoyons la tournée d'origine.
+
+vector<int> operatorP2(P2Data& data, vector<int>& tour) {
+int num_cities = data.num_cities;
+vector<vector<int>> distances = data.distances;
+
+// Sélection aléatoire de deux villes à échanger
+int i = rand() % (num_cities - 1) + 1;
+int j = rand() % (num_cities - 1) + 1;
+
+// Échange des villes
+swap(tour[i], tour[j]);
+
+// Vérification de la validité de la nouvelle tournée
+int capacity = numeric_limits<int>::max();
+for (int k = 0; k < num_cities; k++) {
+    if (capacity < distances[tour[k - 1]][tour[k]]) {
+        swap(tour[i], tour[j]);
+        return tour;
+    }
+    capacity -= distances[tour[k - 1]][tour[k]];
+}
+
+return tour;
+}

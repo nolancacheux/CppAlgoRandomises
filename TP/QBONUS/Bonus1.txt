@@ -1,0 +1,146 @@
+Pour répondre à cette question, nous allons ajouter des paramètres N et M aux fonctions de résolution des problèmes P1 et P2, respectivement, pour leur permettre de prendre en compte le nombre de candidats à considérer lors de la construction des solutions.
+
+Tout d'abord, nous allons modifier la fonction solveP1 pour prendre en compte le nombre de candidats N. 
+Au lieu de considérer uniquement les deux objets les plus bénéfiques à chaque étape, 
+nous allons maintenant considérer les N objets les plus bénéfiques.
+
+Nous allons ensuite sélectionner un sous-ensemble de ces N objets qui peuvent être inclus dans le sac à dos en fonction de leur consommation. 
+Nous allons répéter cette étape jusqu'à ce que le sac à dos soit plein ou qu'il n'y ait plus d'objets disponibles.
+
+Voici la fonction solveP1 modifiée avec le paramètre N :
+
+int solveP1(P1Data& data, int N) {
+    int capacity = data.capacity;
+    int num_objects = data.num_objects;
+    vector<pair<int, int>> objects = data.objects;
+    int total_benefit = 0;
+
+    // Tri des objets par rapport à leur ratio bénéfice/consommation
+    sort(objects.begin(), objects.end(), [](auto& left, auto& right) {
+        return ((double)left.second / left.first) > ((double)right.second / right.first);
+    });
+
+    // Ajout des objets dans le sac à dos
+    while (capacity > 0 && !objects.empty()) {
+        // Sélection des N objets les plus bénéfiques
+        vector<pair<int, int>> candidates(objects.begin(), objects.begin() + min(N, num_objects));
+
+        // Tri des candidats par ordre de consommation croissante
+        sort(candidates.begin(), candidates.end(), [](auto& left, auto& right) {
+            return left.first < right.first;
+        });
+
+        // Sélection d'un sous-ensemble de candidats pouvant être inclus dans le sac à dos
+        int i = 0;
+        while (capacity >= candidates[i].first && i < candidates.size()) {
+            total_benefit += candidates[i].second;
+            capacity -= candidates[i].first;
+            i++;
+        }
+
+        // Suppression des objets déjà ajoutés
+        objects.erase(objects.begin(), objects.begin() + min(i, (int)objects.size()));
+        num_objects -= i;
+    }
+
+    return total_benefit;
+}
+
+Maintenant, nous allons modifier la fonction solveP2 pour prendre en compte le paramètre M. 
+Nous allons utiliser une approche similaire à celle de solveP1 en considérant les M villes les plus proches à chaque étape 
+et en sélectionnant un sous-ensemble de ces M villes pour les ajouter à la tournée.
+Nous allons répéter cette étape jusqu'à ce que toutes les villes aient été visitées.
+
+Voici le code modifié pour la fonction solveP2 avec le paramètre M :
+
+vector<int> solveP2(P2Data& data, int M) {
+    int num_cities = data.num_cities;
+    vector<vector<int>> distances = data.distances;
+
+    // Création de la tournée
+    vector<int> tour(num_cities, -1);
+    tour[0] = 0;
+
+    // Visite des villes
+    for (int i = 1; i < num_cities; i++) {
+        // Sélection des M villes les plus proches
+        vector<int> candidates;
+        for (int j = 0; j < num_cities; j++) {
+        if (find(tour.begin(), tour.end(), j) == tour.end()) {
+        candidates.push_back(j);
+        }
+    }
+    sort(candidates.begin(), candidates.end(), [&distances, &tour](int& left, int& right) {
+    int left_dist = numeric_limits<int>::max();
+    int right_dist = numeric_limits<int>::max();
+    for (int i = 0; i < tour.size() - 1; i++) {
+        int dist = distances[tour[i]][left] + distances[left][tour[i+1]] - distances[tour[i]][tour[i+1]];
+        left_dist = min(left_dist, dist);
+        dist = distances[tour[i]][right] + distances[right][tour[i+1]] - distances[tour[i]][tour[i+1]];
+        right_dist = min(right_dist, dist);
+    }
+    return left_dist < right_dist;
+    });
+    // Ajout des villes dans la tournée
+    for (int j = 0; j < min(M, (int)candidates.size()); j++) {
+        int city = candidates[j];
+        int insert_pos = find(tour.begin(), tour.end(), -1) - tour.begin();
+        tour[insert_pos] = city;
+    }
+}
+
+return tour;
+}
+
+Maintenant, nous allons tester différentes combinaisons de valeurs de N et M pour évaluer la qualité des résultats pour chaque problème. 
+Nous allons générer aléatoirement des instances de chaque problème avec un nombre de villes ou d'objets fixe,
+puis nous allons exécuter chaque algorithme avec différentes valeurs de N et M pour chaque instance. 
+Nous allons mesurer le temps d'exécution et la qualité de la solution pour chaque combinaison de N et M, puis nous allons comparer les résultats.
+
+Voici le code pour tester différentes valeurs de N et M pour chaque problème :
+
+int main() {
+srand(time(NULL));
+
+// Nombre de villes ou d'objets
+int num_elements = 20;
+
+// Génération aléatoire des instances de chaque problème
+P1Data data1 = generateP1Data(num_elements, num_elements * 10);
+P2Data data2 = generateP2Data(num_elements, num_elements * 5);
+
+// Valeurs de N et M à tester
+vector<int> N_values = {2, 3, 4, 5};
+vector<int> M_values = {2, 3, 4, 5};
+
+// Exécution des algorithmes pour chaque combinaison de N et M
+for (int N : N_values) {
+    for (int M : M_values) {
+        // Exécution de solveP1 avec N
+        auto start_time = chrono::high_resolution_clock::now();
+        int result1 = solveP1(data1, N);
+        auto end_time = chrono::high_resolution_clock::now();
+        double exec_time1 = chrono::duration_cast<chrono::microseconds>(end_time - start_time).count() / 1000.0;
+
+        // Exécution de solveP2 avec M
+        start_time = chrono::high_resolution_clock::now();
+        vector<int> result2 = solveP2(data2, M);
+        end_time = chrono::high_resolution_clock::now();
+        double exec_time2 = chrono::duration_cast<chrono::microseconds>(end_time - start_time).count() / 1000.0;
+        // Affichage des résultats pour chaque combinaison de N et M
+        cout << "N=" << N << ", M=" << M << endl;
+        cout << "P1: " << result1 << " (execution time: " << exec_time1 << " ms)" << endl;
+        cout << "P2: ";
+        for (int city : result2) {
+            cout << data2.city_names[city] << " ";
+        }
+        cout << "(execution time: " << exec_time2 << " ms)" << endl;
+        cout << endl;
+    }
+    }
+
+    return 0;
+    }
+Dans cet exemple, nous testons toutes les combinaisons de valeurs de N et M pour des instances de problèmes avec 20 villes ou objets.
+Nous mesurons le temps d'exécution et la qualité de la solution pour chaque combinaison de N et M, puis nous affichons les résultats à la fin.
+On peut ajuuster les valeurs de num_elements, N_values et M_values en fonction la puissance de l'ordinateur et du temps disponible pour l'exécution.

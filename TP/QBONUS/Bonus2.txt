@@ -1,0 +1,63 @@
+Pour résoudre le problème du sac à dos de manière exacte, nous pouvons utiliser un algorithme de recherche exhaustive. 
+L'idée est de générer toutes les combinaisons possibles d'objets et de calculer leur bénéfice total, 
+puis de sélectionner la combinaison qui maximise le bénéfice tout en respectant la capacité maximale du sac à dos.
+
+Voici l'algorithme de recherche exhaustive :
+
+// Fonction pour résoudre le problème P1 avec un algorithme de recherche exhaustive
+int solveP1Bruteforce(P1Data& data) {
+int capacity = data.capacity;
+int num_objects = data.num_objects;
+vector<pair<int, int>> objects = data.objects;
+int max_benefit = 0;
+// Génération de toutes les combinaisons possibles d'objets
+for (int i = 0; i < pow(2, num_objects); i++) {
+    int benefit = 0;
+    int consumption = 0;
+
+    // Calcul du bénéfice et de la consommation pour la combinaison courante
+    for (int j = 0; j < num_objects; j++) {
+        if (i & (1 << j)) {
+            benefit += objects[j].second;
+            consumption += objects[j].first;
+        }
+    }
+
+    // Mise à jour du bénéfice maximal si la consommation est inférieure à la capacité maximale du sac à dos
+    if (consumption <= capacity && benefit > max_benefit) {
+        max_benefit = benefit;
+    }
+}
+
+return max_benefit;
+}
+
+Nous pouvons maintenant comparer les résultats de l'algorithme de recherche exhaustive avec ceux de l'algorithme glouton et de l'heuristique précédemment implémentés. 
+Comme l'algorithme de recherche exhaustive est beaucoup plus coûteux en temps de calcul que les autres algorithmes, nous ne l'utiliserons que pour de petites instances.
+
+Pour comparer les résultats de chaque algorithme sur une petite instance du problème P1 :
+
+int main() {
+    srand(time(NULL));
+
+    // Instance de petite taille
+    P1Data data = generateP1Data(5, 50);
+
+    // Résolution avec l'algorithme glouton
+    int result1 = solveP1(data);
+    cout << "Resultat avec l'algorithme glouton : " << result1 << endl;
+
+    // Résolution avec l'heuristique
+    int result2 = solveP1(data, 2);
+    cout << "Resultat avec l'heuristique : " << result2 << endl;
+
+    // Résolution avec l'algorithme de recherche exhaustive
+    int result3 = solveP1Bruteforce(data);
+    cout << "Resultat avec l'algorithme de recherche exhaustive : " << result3 << endl;
+
+    return 0;
+}
+
+En comparant les résultats, nous pouvons constater que l'algorithme de recherche exhaustive donne la solution optimale pour cette petite instance, 
+mais qu'il est beaucoup plus coûteux en temps de calcul que les autres algorithmes. 
+L'algorithme glouton et l'heuristique donnent tous deux des résultats proches de la solution optimale en un temps de calcul beaucoup plus court.

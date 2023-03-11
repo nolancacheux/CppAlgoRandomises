@@ -1,0 +1,7 @@
+Pour le problème du voyageur de commerce, l'algorithme le plus performant actuellement connu pour les grandes instances est le Concorde TSP Solver, qui utilise une combinaison d'heuristiques et d'algorithmes de branch and cut. Cependant, cet algorithme peut être très lent pour les instances de taille moyenne ou petite.
+
+Pour les instances de taille moyenne ou petite, l'algorithme 2-opt peut être une bonne option. Il s'agit d'un algorithme d'optimisation locale qui améliore une solution initiale en échangeant deux arêtes dans le circuit. L'algorithme 3-opt est une extension de l'algorithme 2-opt qui échange trois arêtes au lieu de deux et peut être encore plus efficace pour de petites instances.
+
+Pour le problème du sac à dos, l'algorithme le plus simple et le plus couramment utilisé est l'algorithme glouton, qui sélectionne les objets les plus bénéfiques en fonction de leur rapport bénéfice/poids et les ajoute au sac à dos tant qu'il y a de la place disponible. Cependant, cet algorithme ne garantit pas la solution optimale et peut donner des résultats suboptimaux.
+
+Pour les instances de taille moyenne ou grande, l'algorithme de branch and bound peut être une meilleure option. Cet algorithme explore toutes les solutions possibles en utilisant une stratégie de parcours en profondeur de l'arbre des solutions, en éliminant les sous-arbres qui ne peuvent pas conduire à la solution optimale. Cet algorithme peut être très efficace pour les instances avec des contraintes de capacité très strictes.

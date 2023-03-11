@@ -1,0 +1,34 @@
+
+En utilisant le fichier p2_data.txt généré à la Q10 pour 10 villes : 
+
+ON génère plusieurs fois Q10.exe afin de créer de nouvelles instances du fichier p2_data.txt
+
+cd out/build/x64-debug/TP/Q11
+./Q11.exe ../Q10/P2_data.txt
+cd..
+cd Q10
+./Q10.exe
+cd..
+cd Q11
+./Q11.exe ../Q10/P2_data.txt
+cd..
+cd Q10
+./Q10.exe
+cd..
+cd Q11
+./Q11.exe ../Q10/P2_data.txt
+
+
+Pourcentages de différence entre la solution optimale (BrutForce) et l'heuristique (solveP2) après de multiples éxécutions : 
+30.30%, 
+11.97%, 
+18.23%,
+15.23%
+
+Ces résultats montrent que l'heuristique donne des solutions qui sont généralement proches de 
+la solution optimale obtenue par la méthode de BrutForce,mais qu'il existe toujours une certaine marge d'erreur.
+
+Plus le nombre de villes à visiter est élevé, plus cette marge d'erreur a tendance à augmenter, ce qui est normal 
+car la complexité de l'algorithme BrutForce augmente de manière exponentielle avec le nombre de villes.
+L'utilisation d'une heuristique peut donc être très utile pour résoudre des problèmes complexes avec un temps d'exécution raisonnable.
+

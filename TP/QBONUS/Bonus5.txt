@@ -1,0 +1,9 @@
+en faitt cela est une extension des problèmes P1 et P2 où plusieurs véhicules de capacité différente sont utilisés pour effectuer les livraisons.
+Le but est de minimiser le coût total de la tournée en satisfaisant toutes les demandes de livraison tout en respectant les contraintes de capacité de chaque véhicule.
+
+Pour résoudre le CVRP, il existe de nombreuses approches heuristiques et exactes, notamment la méthode de Clarke and Wright, la recherche tabou, les algorithmes génétiques et les méthodes de programmation linéaire en nombres entiers.
+
+Une approche possible pour résoudre le CVRP est de combiner les approches développées pour les problèmes P1 et P2. 
+On peut d'abord utiliser une heuristique pour déterminer les tournées de chaque véhicule en prenant en compte la capacité de chaque véhicule.
+Ensuite, on peut utiliser une métaheuristique pour optimiser la planification des tournées en prenant en compte les interactions entre les tournées de
+différents véhicules.

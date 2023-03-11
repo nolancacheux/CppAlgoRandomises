@@ -91,7 +91,7 @@ void writeP2File(const P2Data& data, const string& filename) {
         file << city << endl;
     }
     for (const auto& row : data.distances) {
-        for (const auto& distance :row) {
+        for (const auto& distance : row) {
             file << distance << " ";
         }
         file << endl;
@@ -102,12 +102,12 @@ void writeP2File(const P2Data& data, const string& filename) {
 int main() {
     setlocale(LC_ALL, "FR_fr");
     // Générer les données du problème P1 et les écrire dans un fichier
-    P1Data p1_data = generateP1Data(10, 20);
-    writeP1File(p1_data, "../Q10/P1_data.txt");
+    P1Data p1_data = generateP1Data(1000, 2000);
+    writeP1File(p1_data, "../Q12/P1_data.txt");
 
     // Générer les données du problème P2 et les écrire dans un fichier
-    P2Data p2_data = generateP2Data(10);
-    writeP2File(p2_data, "../Q10/P2_data.txt");
+    P2Data p2_data = generateP2Data(1000);
+    writeP2File(p2_data, "../Q12/P2_data.txt");
 
     std::cout << "\n\nQ10 éxécuté : Les fichiers ont ete ecrits avec succes\n\n";
 

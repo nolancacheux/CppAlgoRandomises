@@ -1,0 +1,14 @@
+Lorsqu'on cherche à résoudre le problème du sac à dos de manière déterministe, il n'est pas systématique d'obtenir un chargement maximisant le bénéfice en prenant uniquement le meilleur candidat à chaque étape de la construction d'une solution.
+
+En effet, si on considère un ensemble d'objets avec des valeurs de consommation et de bénéfice différentes, il est possible qu'un objet moins bénéfique mais moins consommateur puisse être ajouté dans le sac à dos au lieu d'un objet plus bénéfique mais plus consommateur. Si la consommation des objets est telle que l'on ne peut pas inclure tous les objets, alors l'algorithme peut être amené à faire des compromis pour maximiser le bénéfice.
+
+Par exemple, supposons qu'on ait un sac à dos d'une capacité de 50 kg et 4 objets disponibles avec les caractéristiques suivantes :
+
+Objet A : consommation 20 kg, bénéfice 100 euros
+Objet B : consommation 25 kg, bénéfice 120 euros
+Objet C : consommation 10 kg, bénéfice 50 euros
+Objet D : consommation 15 kg, bénéfice 70 euros
+
+Si on choisit de prendre uniquement le meilleur candidat à chaque étape de la construction de la solution, on ajouterait d'abord l'objet B, qui est le plus bénéfique. Mais ensuite, on ne pourrait pas ajouter l'objet A ou l'objet D car ils ne rentreraient pas dans le sac à dos, et on serait donc obligé de choisir l'objet C, qui a un rapport bénéfice/consommation moins bon que les autres objets. Cela donnerait une solution avec un bénéfice total de 170 euros.
+
+En revanche, si on choisit une approche déterministe qui prend en compte la consommation des objets, on pourrait d'abord ajouter l'objet C, qui a une consommation faible et un bénéfice acceptable. Ensuite, on pourrait ajouter l'objet D, qui a une consommation intermédiaire et un bénéfice intéressant. Enfin, on pourrait ajouter l'objet A, qui a une consommation plus élevée mais un bénéfice important. Cela donnerait une solution avec un bénéfice total de 270 euros.
