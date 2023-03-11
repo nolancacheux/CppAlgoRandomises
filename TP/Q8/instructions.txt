@@ -1,8 +1,22 @@
 
 
+
+En reprenant la Q5 , désormais , nous allons mettre la seed en tant que paramètre argv[1] et : 
+
+int seed = argv[1]; // valeur de la graine 
+std::default_random_engine generator(seed); // initialisation de la graine
+
+P1Data p1_data = readP1File(argv[2]);
+P2Data p2_data = readP2File(argv[3]);
+
+Si l'on change la graine du générateur , les résultats seront différents !! 
+
+
+Instruction à faire pour tester le code : 
+
 Ajoute les deux fichiers 4villes.txt et 5colis30capacites.txt dans le build 
 
-Lance : 
+Aller dans le terminal : 
 
 cd out/build/x64-debug/TP/Q8
 ./Q8.exe 1 5colis30capacite.txt 4villes.txt >> fichier.txt

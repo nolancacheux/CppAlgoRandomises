@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
 
-project(Q9)
+project(Q8_V2)
 
 # Source files
 
 set(SRC
-    Q9.cpp
+    Q8_V2.cpp
     
 )
 
@@ -14,4 +14,4 @@ include_directories(
 )
 
 
-add_executable(Q9 ${SRC})
+add_executable(Q8_V2 ${SRC})

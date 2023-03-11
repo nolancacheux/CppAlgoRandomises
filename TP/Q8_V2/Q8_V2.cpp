@@ -132,10 +132,10 @@ vector<int> solveP1(P1Data& data, int seed) {
                 }
             }
 
-           // std::cout << endl << endl << total_consumption << " / " << data.capacity;
-            //std::cout << "\nOn CHOISIt désormais aléatoirement entre les deux meilleurs candidats d'objets : " << std::endl;
+            // std::cout << endl << endl << total_consumption << " / " << data.capacity;
+             //std::cout << "\nOn CHOISIt désormais aléatoirement entre les deux meilleurs candidats d'objets : " << std::endl;
 
-            //std::cout << get<0>(candidate1) << " et " << get<0>(candidate2) << endl;
+             //std::cout << get<0>(candidate1) << " et " << get<0>(candidate2) << endl;
 
             tuple<int, int, int> chosen_candidate;
             if (get<0>(candidate2) == 0) {
@@ -161,19 +161,20 @@ vector<int> solveP1(P1Data& data, int seed) {
     }
 
     // Affichage de la solution
-    std::cout << "\nBenefice total : " << total_profit << std::endl;
-    std::cout << "Energie consommee : " << total_consumption << std::endl;
-    std::cout << "Composition de la solution :" << std::endl;
+    std::cout <<  total_profit << std::endl;
+    std::cout << total_consumption << std::endl;
+    std::cout << "(";
     for (int i = 0; i < data.num_objects; i++) {
         if (solution[i] == 1) {
             int index, consumption, profit;
             std::tie(index, consumption, profit) = copie_data.objects[i];
-            std::cout << "Objet " << index << " inclus" << std::endl;
+            if (i == data.num_objects - 1) { std::cout << index << ")" << std::endl; }
+            else { std::cout << index << ","; }
         }
     }
-    std::cout << "\nAvec coefficient de ponderation de 0.5 pour le benefice et de 0.5 pour l'energie consommee :" << std::endl;
-    std::cout << "Resultat pondere : " << ((0.5 * total_profit) + (0.5 * total_consumption)) << std::endl;
-    
+    //Coefficient de ponderation de 0.5 pour le benefice et de 0.5 pour l'energie consommee.
+    std::cout << ((0.5 * total_profit) + (0.5 * total_consumption)) << std::endl;
+
     return solution;
 
 }
@@ -242,9 +243,9 @@ int solveP2(P2Data& data, int seed) {
 
     //Affichage du chemin solution
     for (int i = 0; i < Solution.size(); ++i) {
-        cout << data.city_names[Solution[i]] << " -> ";
+        std::cout << data.city_names[Solution[i]] << "->";
     }
-    cout << data.city_names[Solution[0]] << endl;
+    std::cout << data.city_names[Solution[0]];
     return total_distance;
 }
 
@@ -262,21 +263,19 @@ int main(int argc, char* argv[]) {
 
     unsigned int seed = std::stoi(argv[1]); // valeur de la graine 
     std::default_random_engine generator(seed); // initialisation de la graine
-    
-    cout << "\nNumero de la replication (graine) : " <<seed<< endl;
-
+    std::cout << "Solution " << seed << endl;
+    //cout << "\nNumero de la replication (graine) : " << seed << endl;
     // Résolution du problème P1
     P1Data p1_data = readP1File(argv[2]);
-    cout << "\nProbleme P1 :" << endl;
+    //cout << "\nProbleme P1 :" << endl;
     //cout << "\nDonnees :" << endl;
     auto p1result = solveP1(p1_data, seed);
     // Résolution du problème P2
     P2Data p2_data = readP2File(argv[3]);
-    cout << "\nProbleme P2 :" << endl;
+    //cout << "\nProbleme P2 :" << endl;
     //cout << "\nDonnées :" << endl;
-    cout << "Chemin trouve : " << endl;
     int p2result = solveP2(p2_data, seed);
-    cout << "Distance : " << p2result << endl;/*
+    std::cout << "\n" << p2result << endl;/*
     cout << endl << "Chemin optimal : ";
     for (const auto& city : p2_data.city_names) {
         cout << city << " -> ";

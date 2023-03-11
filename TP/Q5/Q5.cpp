@@ -22,6 +22,7 @@ struct P2Data {
     vector<vector<int>> distances; // Matrice des distances
 };
 
+
 // Fonction pour lire les données du problème P1 à partir d'un fichier
 P1Data readP1File(std::string filename) {
     std::ifstream infile(filename);
@@ -95,7 +96,7 @@ void printP2Data(P2Data data) {
 }
 
 // Fonction pour résoudre le problème P1 avec un algorithme glouton
-vector<int> solveP1(P1Data& data) {
+vector<int> solveP1(P1Data& data, int seed) {
     auto copie_data = data;
     // Tri des objets en fonction du ratio bénéfice/consommation décroissant
     sort(data.objects.begin(), data.objects.end(), [](auto& o1, auto& o2) {
@@ -140,7 +141,7 @@ vector<int> solveP1(P1Data& data) {
             }
             else {
                 // Choix aléatoire entre les deux candidats
-                std::default_random_engine generator(std::random_device{}());
+                std::default_random_engine generator(seed);
                 std::uniform_int_distribution<int> distribution(1, 2);
                 auto random_choice = distribution(generator);
                 chosen_candidate = (random_choice == 1) ? candidate1 : candidate2;
@@ -172,112 +173,113 @@ vector<int> solveP1(P1Data& data) {
 
 }
 
-
-// Fonction pour calculer la distance entre deux villes
-int distanceBetweenCities(const P2Data& data, int city1, int city2) {
-    return data.distances[city1][city2];
-}
-
-// Fonction pour trouver la ville la plus proche de la dernière ville ajoutée à chaque itération dans le problème P2
-int findNearestCity(const P2Data& data, const vector<int>& visited_cities, int last_city) {
-    int nearest_city = -1;
-    int min_distance = numeric_limits<int>::max(); // initialiser avec la plus grande valeur possible
-    for (int i = 0; i < data.num_cities; i++) {
-        // Vérifier si la ville a déjà été visitée
-        if (find(visited_cities.begin(), visited_cities.end(), i) == visited_cities.end()) {
-            int distance = distanceBetweenCities(data, last_city, i);
-            // Vérifier si la ville est plus proche que la ville actuellement la plus proche
-            if (distance < min_distance) {
-                min_distance = distance;
-                nearest_city = i;
-            }
-        }
-    }
-    return nearest_city;
-}
-
-
-int solveP2(P2Data& data) {
+// Fonction pour résoudre le problème P1 avec un algorithme glouton
+int solveP2(P2Data& data, int seed) {
+    vector<int> lst(data.num_cities, 0);
     int total_distance = 0;
-    int current_city = 0; // On commence à la première ville
-    vector<int> visited_cities = { current_city }; // La première ville est déjà visitée
-    // Boucle pour ajouter les villes restantes
-    while (visited_cities.size() < data.num_cities) {
-        // Trouver les deux paires de villes les plus proches de la dernière ville ajoutée
-        int last_city = visited_cities.back();
-        vector<pair<int, int>> nearest_city_pairs(2, make_pair(-1, numeric_limits<int>::max())); // On initialise le vecteur à la bonne taille
-        int min_distance1 = numeric_limits<int>::max();
-        int min_distance2 = numeric_limits<int>::max();
-        for (int i = 0; i < data.num_cities; i++) {
-            // Vérifier si la ville a déjà été visitée
-            if (find(visited_cities.begin(), visited_cities.end(), i) == visited_cities.end()) {
-                int distance = distanceBetweenCities(data, last_city, i);
-                // Vérifier si la ville est plus proche que les villes actuellement les plus proches
-                if (distance < min_distance1) {
-                    min_distance2 = min_distance1;
-                    nearest_city_pairs[1] = nearest_city_pairs[0]; // On décale la deuxième paire
-                    nearest_city_pairs[0] = make_pair(i, distance);
-                    min_distance1 = distance;
-                }
-                else if (distance < min_distance2) {
-                    nearest_city_pairs[1] = make_pair(i, distance);
-                    min_distance2 = distance;
-                }
+    int finish = 0;
+
+    //Choix aléatoire de la ville intiale
+    std::uniform_int_distribution<int> distribution(0, lst.size() - 1);
+    std::default_random_engine generator(seed);
+    auto lastville = distribution(generator);
+    vector<int> Solution = { lastville };
+    lst[lastville] = 1; //On marque la ville choisie pour ne pas la réutiliser
+
+    cout << "ville de départ : " << data.city_names[lastville] << " " << lastville << endl;
+
+    //Calcul des 2 meilleurs villes et choix entre les 2
+    while (finish == 0) {
+
+        vector<pair<int, int>> Distance;
+        //Calcul des distances entre la dernière ville et toutes les autres villes
+        for (int i = 0; i < lst.size(); ++i) {
+            if (lst[i] == 0) { //On vérifie que la ville n'est pas marquée
+                Distance.push_back(make_pair(data.distances[lastville][i], i)); //On crée un vecteur contenant toutes les distances restantes
             }
         }
-        // Tirage au sort entre les deux paires de villes les plus proches (s'il y en a plus d'une)
-        int chosen_pair;
-        if (nearest_city_pairs[1].first != -1) { // Si on a plus d'une paire
-            std::random_device rd;
-            std::mt19937 gen(rd());
-            std::uniform_int_distribution<> distrib(0, 1);
-            chosen_pair = distrib(gen);
+        std::sort(Distance.begin(), Distance.end()); //Tri du vecteur des distances par ordre croissant
 
-            // Tirage au sort entre les deux villes de la paire choisie
-            vector<int> nearest_cities = { nearest_city_pairs[chosen_pair].first, nearest_city_pairs[chosen_pair].second };
-            int chosen_city = nearest_cities[distrib(gen)];
-            // Ajouter la ville choisie à la liste des villes visitées
-            visited_cities.push_back(chosen_city);
-            // Ajouter la distance parcourue à la distance totale
-            total_distance += distanceBetweenCities(data, last_city, chosen_city);
+        //Si il ne reste plus qu'une ville
+        if (Distance.size() == 1) {
+            //On enregistre la ville en données
+            cout << "Il ne reste plus qu'une ville : " << data.city_names[Distance[0].second] << " " << Distance[0].second << endl;
+            finish = 1; //Fin des boucles
+            Solution.push_back(Distance[0].second);
+            lst[Distance[0].second] = 1;
+            total_distance += Distance[0].first;
+            cout << "Distance : " << Distance[0].first << endl;
+            lastville = Distance[0].second;
         }
-        return total_distance;
-    }
-}
+        else {
+            //Choix aléatoire entre les 2 villes les plus proches
+            std::uniform_int_distribution<int> distribution(0, 1);
+            std::default_random_engine generator(seed);
+            auto choosen = distribution(generator);
 
+            //Ajout de la soluton dans la liste
+            Solution.push_back(Distance[choosen].second);
+            lst[Distance[choosen].second] = 1;
+            total_distance += Distance[choosen].first;
+            lastville = Distance[choosen].second;
+
+            //Partie Affichage et déboggage
+            cout << "Distance : " << Distance[choosen].first << endl;
+            cout << "On choisit entre : " << data.city_names[Distance[0].second] << " " << Distance[0].second << " et " << data.city_names[Distance[1].second] << " " << Distance[1].second << endl;
+            cout << "La ville choisie aléatoirement est : " << data.city_names[Distance[choosen].second] << " " << Distance[choosen].second << endl;
+        }
+
+    }
+    cout << endl << "Chemin :" << endl;
+
+    //On ajoute la première ville à la fin car c'est un cycle
+    total_distance += data.distances[Solution[Solution.size() - 1]][Solution[0]];
+
+    //Affichage du chemin solution
+    for (int i = 0; i < Solution.size(); ++i) {
+        cout << data.city_names[Solution[i]] << " -> ";
+    }
+    cout << data.city_names[Solution[0]] << endl;
+    return total_distance;
+}
 
 
 
 int main(int argc, char* argv[]) {
+
     setlocale(LC_ALL, "FR_fr");
+
     // Vérifier si les noms de fichiers ont été fournis en tant que paramètres
     if (argc != 3) {
         cerr << "Deux noms de fichiers doivent être fournis en tant que paramètres." << endl;
         return 1;
     }
+
+    int seed = 3; // valeur de la graine 
+    std::default_random_engine generator(seed); // initialisation de la graine
+
     // Résolution du problème P1
     P1Data p1_data = readP1File(argv[1]);
     cout << "\nProblème P1 :" << endl;
     cout << "\nDonnées :" << endl;
     printP1Data(p1_data);
-    auto p1result = solveP1(p1_data);
+    auto p1result = solveP1(p1_data, seed);
     std::cout << "On remarque que cela n'est pas LA MEILLEURE solution car il aurait fallu prendre les objets 1, 4 et 5";
     // Résolution du problème P2
     P2Data p2_data = readP2File(argv[2]);
     cout << "\nProblème P2 :" << endl;
     cout << "\nDonnées :" << endl;
     printP2Data(p2_data);
-    /*
-    int p2result = solveP2(p2_data);
-    cout << "Résultat :\n" << endl;
-    cout << "Distance minimale : " << p2result << endl;
-    cout << "Chemin optimal : ";
+    cout << "Chemin trouve : " << endl;
+    int p2result = solveP2(p2_data, seed);
+    cout << "Distance : " << p2result << endl;/*
+    cout << endl << "Chemin optimal : ";
     for (const auto& city : p2_data.city_names) {
         cout << city << " -> ";
     }
-    cout << p2_data.city_names[0] << "\n\n" << endl;
-     */
+    cout << p2_data.city_names[0] << "\n\n" << endl;*/
     return 0;
 }
+
 
 
