@@ -1,8 +1,11 @@
 
+
+
 Dans le terminal 
 
 cd out/build/x64-debug/TP/Q10
 
+./Q10.exe
 .\P1_data.txt
 .\P2_data.txt
 
