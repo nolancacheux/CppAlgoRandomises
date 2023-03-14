@@ -255,6 +255,9 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
+    int seed = 3; // valeur de la graine 
+    std::default_random_engine generator(seed); // initialisation de la graine
+
     // Résolution du problème P1
     P1Data p1_data = readP1File(argv[1]);
     cout << "\nProblème P1 :" << endl;
