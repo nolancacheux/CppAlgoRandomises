@@ -9,11 +9,6 @@ Ce README.md présente les grandes lignes d'un TP sur les algorithmes gloutons ra
 4. Manipuler des graines de générateur de nombres pseudo-aléatoires pour obtenir des solutions différentes.
 5. Accorder une grande liberté sur les différents choix (structures de données et choix algorithmiques).
 
-## Sujet
-
-CIR2 - Algorithmique Avancée
-Sujet TD&P n°5 - Séances 7 & 8
-Réplications d’un Algorithme Glouton Randomisé
 
 ## Problèmes à résoudre
 
