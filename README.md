@@ -1,6 +1,6 @@
 # C++ - Algorithmique Avancée - Algorithmes Gloutons Randomisés
 
-Ce README.md présente les grandes lignes du TP sur les algorithmes gloutons randomisés en C++. Pour une compréhension plus détaillée et des instructions d'exécution, consultez les dossiers de chaque question. Le rapport complet est disponible dans le repository, à la racine du projet.
+Ce README.md présente les grandes lignes d'un TP sur les algorithmes gloutons randomisés en C++, réalisé en groupe de 4 personnes. Pour une compréhension plus détaillée et des instructions d'exécution, consultez les dossiers de chaque question. Le rapport complet est disponible dans le repository, à la racine du projet.
 ## Objectifs du TP
 
 1. Comprendre la puissance des algorithmes randomisés répliqués.
